@@ -20,18 +20,34 @@ const avatarVariants = cva("block  rounded-full overflow-hidden", {
 type AvatarVariantProps = VariantProps<typeof avatarVariants>;
 export type Size = AvatarVariantProps["size"]
 
-type Props = {} & AvatarVariantProps
+type Props = { isOnline?: boolean } & AvatarVariantProps
 
-const Avatar = ({ size }: Props) => {
+const Avatar = ({ size, isOnline }: Props) => {
   return (
-    <DefaultAvatar className={cn(avatarVariants({ size: size}))}>
-        <AvatarImage
-          className='aspect-square size-full object-cover'
-          src="https://github.com/shadcn.png"
-        />
-        <AvatarFallback>CN</AvatarFallback>
-    </DefaultAvatar>
+    <div className='relative inline-block'>
+      <DefaultAvatar className={cn(avatarVariants({ size}))}>
+          <AvatarImage
+            className='aspect-square size-full object-cover'
+            src="https://github.com/shadcn.png"
+          />
+          <AvatarFallback>CN</AvatarFallback>
+      </DefaultAvatar>
+      {isOnline && (
+        <span className={cn(
+          'inline-block bg-green-400 rounded-full',
+          'absolute bottom-0 right-0',
+          'border border-white',
+          size === 'sm' || size === 'md' ? 'size-2' : 'size-3'
+        )}/>
+      )}
+    </div>
   )
 }
 
 export default Avatar
+
+// size
+// 28 x 28
+// 32 x 32
+// 36 x 36
+// 40 x 40

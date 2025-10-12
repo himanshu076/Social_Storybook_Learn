@@ -42,3 +42,8 @@ export const XLarge = {
         size: "xl"
     }
 } satisfies Story;
+export const OnlineIndicator = {
+    args: {
+        isOnline: true
+    }
+} satisfies Story;
