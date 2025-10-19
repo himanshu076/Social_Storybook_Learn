@@ -5,7 +5,7 @@
 
 import {type Meta, StoryObj} from "@storybook/nextjs-vite";
 import Avatar, { Size } from "@/components/atom/avatar";
-import { fn } from "storybook/test";
+import { expect, fn } from "storybook/test";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
@@ -80,5 +80,14 @@ export const DynamicPresenceIndicator = {
                 </Button>
             </div>
         );
+    },
+    play: async ({ canvas, userEvent }) => {
+        const button = await canvas.findByRole("button", { name: /connect/gi})
+        expect(button).toBeInTheDocument();
+
+        await userEvent.click(button);
+
+        const indicator = await canvas.findByTestId("presence-indicator");
+        expect(indicator).toBeInTheDocument();
     }
 } satisfies Story;

@@ -47,12 +47,15 @@ const Avatar = ({ size, isOnline, src, alt, onClick }: Props) => {
           </AvatarFallback>
       </DefaultAvatar>
       {isOnline && (
-        <span className={cn(
-          'inline-block bg-green-400 rounded-full',
-          'absolute bottom-0 right-0',
-          'border border-white',
-          size === 'sm' || size === 'md' ? 'size-2' : 'size-3'
-        )}/>
+        <span
+          className={cn(
+            'inline-block bg-green-400 rounded-full',
+            'absolute bottom-0 right-0',
+            'border border-white',
+            size === 'sm' || size === 'md' ? 'size-2' : 'size-3'
+          )}
+          data-testid='presence-indicator'
+        />
       )}
     </div>
   )
