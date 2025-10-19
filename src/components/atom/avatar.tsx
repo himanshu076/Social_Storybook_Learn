@@ -1,7 +1,8 @@
 import { Avatar as DefaultAvatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 const avatarVariants = cva("block  rounded-full overflow-hidden", {
   variants: {
@@ -20,17 +21,27 @@ const avatarVariants = cva("block  rounded-full overflow-hidden", {
 type AvatarVariantProps = VariantProps<typeof avatarVariants>;
 export type Size = AvatarVariantProps["size"]
 
-type Props = { isOnline?: boolean } & AvatarVariantProps
+type Props = { isOnline?: boolean } & AvatarVariantProps &
+  Pick<ComponentProps<typeof AvatarImage>, "alt" | "src">;
 
-const Avatar = ({ size, isOnline }: Props) => {
+const Avatar = ({ size, isOnline, src, alt }: Props) => {
   return (
     <div className='relative inline-block'>
       <DefaultAvatar className={cn(avatarVariants({ size}))}>
           <AvatarImage
             className='aspect-square size-full object-cover'
-            src="https://github.com/shadcn.png"
+            src={src}
+            alt={alt}
           />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>
+            <Image
+              className='aspect-square size-full object-cover'
+              src="https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper-thumbnail.png"
+              alt="avatar placeholder image"
+              width={40}
+              height={40}
+            />
+          </AvatarFallback>
       </DefaultAvatar>
       {isOnline && (
         <span className={cn(

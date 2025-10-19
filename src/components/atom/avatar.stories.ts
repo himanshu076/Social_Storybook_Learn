@@ -12,6 +12,9 @@ const meta = {
     title: "Design System/Atoms/Button",
     component: Avatar,
     args: {
+        src: "https://github.com/shadcn.png",
+        alt: "Avatar Image",
+        isOnline: false,
         size: "md"
     },
     argTypes: {
@@ -47,3 +50,9 @@ export const OnlineIndicator = {
         isOnline: true
     }
 } satisfies Story;
+
+export const PlaceholderImage ={
+    args: {
+        src: 'Invalid Image'
+    }
+} satisfies Story
