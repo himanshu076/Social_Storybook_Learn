@@ -5,6 +5,9 @@
 
 import {type Meta, StoryObj} from "@storybook/nextjs-vite";
 import Avatar, { Size } from "@/components/atom/avatar";
+import { fn } from "storybook/test";
+import { useState } from "react";
+import { Button } from "../ui/button";
 
 const sizeOptions: Size[] = ["sm", "md", "lg", "xl"]
 
@@ -15,7 +18,8 @@ const meta = {
         src: "https://github.com/shadcn.png",
         alt: "Avatar Image",
         isOnline: false,
-        size: "md"
+        size: "md",
+        onClick: fn()
     },
     argTypes: {
         size: {
@@ -56,3 +60,25 @@ export const PlaceholderImage ={
         src: 'Invalid Image'
     }
 } satisfies Story
+
+export const DynamicPresenceIndicator = {
+    argTypes: {
+        isOnline: {
+            control: {disable: true}
+        }
+    },
+    render: (args) => {
+        const [isOnline, setIsOnline] = useState<boolean>(false);
+
+        return (
+            <div className="flex flex-col gap-4 items-start">
+                <Avatar {...args} isOnline={isOnline} />
+
+                <p>Is Online: {JSON.stringify(isOnline)}</p>
+                <Button onClick={() => setIsOnline(prev => !prev)}>
+                    {isOnline ? "Disconnect" : "Connect!"}
+                </Button>
+            </div>
+        );
+    }
+} satisfies Story;

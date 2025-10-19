@@ -21,13 +21,16 @@ const avatarVariants = cva("block  rounded-full overflow-hidden", {
 type AvatarVariantProps = VariantProps<typeof avatarVariants>;
 export type Size = AvatarVariantProps["size"]
 
-type Props = { isOnline?: boolean } & AvatarVariantProps &
+type Props = {
+  isOnline?: boolean
+  onClick?: () => void;
+} & AvatarVariantProps &
   Pick<ComponentProps<typeof AvatarImage>, "alt" | "src">;
 
-const Avatar = ({ size, isOnline, src, alt }: Props) => {
+const Avatar = ({ size, isOnline, src, alt, onClick }: Props) => {
   return (
-    <div className='relative inline-block'>
-      <DefaultAvatar className={cn(avatarVariants({ size}))}>
+    <div className='relative inline-block size-fit'>
+      <DefaultAvatar className={cn(avatarVariants({ size}))} onClick={onClick}>
           <AvatarImage
             className='aspect-square size-full object-cover'
             src={src}
